@@ -17,53 +17,43 @@ STEP-5: Display the cipher text obtained above.
 
 ## PROGRAM:
 ```
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-
-void encode(char *str, int offset, char *result) {
-    int i;
-    int length = strlen(str);
-    offset = offset % 26 + 26;
-    
-    for (i = 0; i < length; i++) {
-        if (isalpha(str[i])) {
-            if (isupper(str[i])) {
-                result[i] = 'A' + (str[i] - 'A' + offset) % 26;
-            } else {
-                result[i] = 'a' + (str[i] - 'a' + offset) % 26;
-            }
-        } else {
-            result[i] = str[i];
-        }
-    }
-    result[length] = '\0'; 
-}
-
-void decode(char *str, int offset, char *result) {
-
-    encode(str, 26 - (offset % 26), result);
-}
-
-int main() {
-    char msg[] = "Hello welcome to Security Laboratory";
-    char encoded[256];
-    char decoded[256];
-    
-    printf("Simulation of Caesar Cipher\n");
-    printf("Input message: %s\n", msg);
-    
-    encode(msg, 12, encoded);
-    printf("Encoded message: %s\n", encoded);
-    
-    decode(encoded, 12, decoded);
-    printf("Decoded message: %s\n", decoded);
-    
-    return 0;
+#include <stdio.h> 
+#include <string.h> 
+#include <ctype.h> 
+void main() 
+{ 
+    char plain[10],cipher[10]; 
+    int key,i,length; 
+    int result; 
+    printf("\n Enter the plain text:"); 
+    scanf("%s", plain); 
+    printf("\n Enter the key value:"); 
+    scanf("%d", &key); 
+    printf("\n \n \t PLAIN TEXT: %s", plain); 
+    printf("\n \n \t ENCRYPTED TEXT:"); 
+    for(i=0, length = strlen(plain); i<length; i++) 
+    { 
+        cipher[i]=plain[i] + key; 
+        if (isupper(plain[i]) && (cipher[i] > 'Z')) 
+        cipher[i] = cipher[i] - 26; 
+        if (islower(plain[i]) && (cipher[i] > 'z')) 
+        cipher[i] = cipher[i] - 26; 
+        printf("%c", cipher[i]); 
+    } 
+    printf("\n \n \t AFTER DECRYPTION : "); 
+    for(i=0;i<length;i++) 
+    { 
+        plain[i]=cipher[i]-key; 
+        if(isupper(cipher[i])&&(plain[i]<'A')) 
+        plain[i]=plain[i]+26; 
+        if(islower(cipher[i])&&(plain[i]<'a')) 
+        plain[i]=plain[i]+26; 
+        printf("%c",plain[i]); 
+    } 
 }
 ```
 ## OUTPUT:
-<img width="1617" height="782" alt="486349373-d92b27d6-236c-42c1-8a9e-99f892bd28d9" src="https://github.com/user-attachments/assets/046bd2d2-27a8-4f9b-a72c-992946fc1a8d" />
+<img width="1919" height="988" alt="Screenshot 2026-02-19 142347" src="https://github.com/user-attachments/assets/89148f11-293b-4e31-9e02-b7d41b75bc95" />
 
 ## RESULT :
  Thus the implementation of ceasar cipher had been executed successfully.
